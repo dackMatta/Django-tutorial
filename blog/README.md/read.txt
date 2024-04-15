@@ -88,3 +88,82 @@ python manage.py runserver---run on the console/terminal to run the web server
  When prompted, type your username (lowercase, no spaces), email address, and password.
  Return to your browser. Log in with the superuser's credentials you chose
  Go to Posts and experiment a little bit with it. Add five or six blog posts.
+
+ #Deploy!
+ Deploying is the process of publishing your application on the Internet so people can finally go and see your app.
+ we're going to use PythonAnywhere. 
+ PythonAnywhere is free for small applications that don't have too many visitors so it'll definitely be enough for you now
+
+ Setting up our blog on PythonAnywhere
+ Sign up for a PythonAnywhere account
+
+ #Creating a PythonAnywhere API token
+ Find the link near the top right to your "Account" page:
+ then select the tab named "API token", and hit the button that says "Create new API token".
+
+#Configuring our site on PythonAnywhere
+Go back to the main PythonAnywhere Dashboard by clicking on the logo,
+choose the option to start a "Bash" console – that's the PythonAnywhere version of a command line.
+ Deploying a web app on PythonAnywhere involves pulling down your code from GitHub,
+  and then configuring PythonAnywhere to recognise it and start serving it as a web application.
+  pip3.8 install --user pythonanywhere ---prompt the  command line to install the python anywhere application
+
+  .......i got stack with pythoneverywhere.....
+
+#Django URLs
+A URL is a web address. You can see a URL every time you visit a website
+
+ add a line that will import blog.urls
+ navigate to the urls.py in mypractice and add the following:
+   
+   from django.contrib import admin
+   from django.urls import path, include
+   urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('blog.urls')),---we have added this path
+
+   ]
+
+#blog.urls
+Create a new empty file named urls.py in the blog directory,
+add the following code to the file
+  from django.urls import path
+  from . import views
+
+Here we're importing Django's function path and all of our views from the blog application
+we then add the following to the urls.py file
+
+  urlpatterns = [
+    path('', views.post_list, name='post_list'),
+  ]
+
+  *an explanaition of the code components above:
+   we have  assigninged a view called post_list to the root URL
+   name='post_list', is the name of the URL that will be used to identify the view.
+   keep the names of URLs unique and easy to remember.
+
+#Django views 
+A view is a place where we put the "logic" of our application
+It will request information from the model you created before and pass it to a template
+Views are placed in the views.py file. We will add our views to the blog/views.py file.
+
+#blog/views.py
+def post_list(request):
+    return render(request, 'blog/post_list.html', {})
+
+    *an explanaition of the code components above:
+     we created a function (def) called post_list,
+     the function takes request and will return the value it gets from calling another function render that will render (put together) our template
+
+#Your first template!
+Templates are saved in blog/templates/blog directory.
+ first create a directory called templates inside your blog directory.
+ Then create another directory called blog inside your templates directory:
+ And now create a post_list.html file inside the blog/templates/blog directory.
+ *note that django templetes are case sensitive 
+
+
+   
+
+
+
