@@ -1,0 +1,90 @@
+#To create our first django project run the command
+PS C:\Users\Administrator\Documents\Django tutorial\practice> django-admin.exe startproject mypractice .
+
+#Changing settings
+TIME_ZONE = 'Europe/Berlin'---specify the time TIME_ZONE
+LANGUAGE_CODE = 'de-ch'---specify the LANGUAGE_CODE
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'static'----add a path for static files
+ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com']
+
+#Set up a database
+python manage.py migrate---run on the console to create the database
+
+#Starting the web server
+python manage.py runserver---run on the console to start the web server
+
+#Django models
+A model in Django is a special kind of object – it is saved in the database
+An object  is a collection of properties and actions.
+
+#Creating an application
+To keep everything tidy, we will create a separate application inside our project
+python manage.py startapp blog---run on the console to create the application
+navigate to the setting.py and add the path
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'blog',------we added the app to the installed INSTALLED_APPS
+]
+
+#Creating a blog post model
+navigate to models.py in our blog app and create the objects in this case
+
+from django.conf import settings
+from django.db import models
+from django.utils import timezone
+
+
+class Post(models.Model):
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    title = models.CharField(max_length=200)
+    text = models.TextField()
+    created_date = models.DateTimeField(default=timezone.now)
+    published_date = models.DateTimeField(blank=True, null=True)
+
+    def publish(self):
+        self.published_date = timezone.now()
+        self.save()
+
+    def __str__(self):
+        return self.title
+
+an explanaition of the above code
+
+we have created a class with the name Post
+models.Model means that the Post is a Django Model, so Django knows that it should be saved in the database.
+models.CharField – this is how you define text with a limited number of characters.
+models.TextField – this is for long text without a limit.
+models.DateTimeField – this is a date and time.
+models.ForeignKey – this is a link to another model.
+
+def publish(self):---means that this is a function/method and publish is the name of the method.
+ The naming rule is that we use lowercase and underscores instead of spaces
+  we need to indent our methods inside the class
+
+#Create tables for models in your database
+ python manage.py makemigrations blog ----run the command on the console/terminal to add our new model to our database. 
+ python manage.py migrate blog -----run the command on the console/terminal to apply our file to our database. 
+
+#Django admin
+To add, edit and delete the posts we've just modeled, we will use Django admin
+Let's open the blog/admin.py file in the code editor and replace its contents with this:
+
+  from django.contrib import admin
+  from .models import Post
+
+  admin.site.register(Post)
+
+python manage.py runserver---run on the console/terminal to run the web server
+ Go to your browser and type the address http://127.0.0.1:8000/admin/. 
+ To log in, you need to create a superuser - a user account that has control over everything on the site.
+ python manage.py createsuperuser---run this command on the terminal
+ bonous point---Remember, to write new commands while the web server is running, open a new terminal window
+ When prompted, type your username (lowercase, no spaces), email address, and password.
+ Return to your browser. Log in with the superuser's credentials you chose
+ Go to Posts and experiment a little bit with it. Add five or six blog posts.
