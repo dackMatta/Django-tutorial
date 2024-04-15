@@ -160,7 +160,63 @@ Templates are saved in blog/templates/blog directory.
  first create a directory called templates inside your blog directory.
  Then create another directory called blog inside your templates directory:
  And now create a post_list.html file inside the blog/templates/blog directory.
+ in your post_list.html file add the content you want to be displayed on your webpage
  *note that django templetes are case sensitive 
+
+
+#Django ORM and QuerySets
+here we learn how Django connects to the database and stores data in it.
+A QuerySet is, in essence, a list of objects of a given Model.
+QuerySets allow you to read the data from the database, filter it and order it.
+
+#Django shell
+type this command on the terminal
+ >>>python manage.py shell
+next we need to import post from blog.models in that case
+type this command on the terminal
+ >>>from blog.models import Post
+after importing post,
+on the terminal prompt
+ >>>Post.objects.all()
+the terminal returns a list of the posts we created earlier! We created these posts using the Django admin interface.
+
+#Create object
+to create a new object in database using python,
+Let's import User model first:
+on the terminal
+ >>>from django.contrib.auth.models import User
+check the number of users with this prompt
+>>>User.objects.all()
+to  get an instance of the user now
+ >>>me = User.objects.get(username='dackmattamac')
+Now we can finally create our post:
+ >>>Post.objects.create(author=me, title='Sample title', text='Test')
+ >>>Post.objects.create(author=me, title='beats producers', text='Test')
+ >>>Post.objects.create(author=me, title='record labels', text='Test')
+to check if it worked
+ >>>Post.objects.all()
+
+#Filter objects
+A big part of QuerySets is the ability to filter them.
+we can filter the QuerySet to get a list based on their content
+ >>>Post.objects.filter(title__contains='title')
+ >>>Post.objects.filter(title__contains='top')
+
+You can also get a list of all published posts.
+First get an instance of a post we want to publish in this case:
+ >>> post = Post.objects.get(title="Sample title")
+
+#Ordering objects
+QuerySets also allow you to order the list of objects
+We can reverse the ordering by adding - at the beginning:
+ >>>Post.objects.order_by('-created_date')
+
+ To close the shell, type this:
+     >>>exit()
+
+
+
+  
 
 
    
