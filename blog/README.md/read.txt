@@ -3,7 +3,7 @@ PS C:\Users\Administrator\Documents\Django tutorial\practice> django-admin.exe s
 
 #Changing settings
 TIME_ZONE = 'Europe/Berlin'---specify the time TIME_ZONE
-LANGUAGE_CODE = 'de-ch'---specify the LANGUAGE_CODE
+LANGUAGE_CODE = 'en-us'---specify the LANGUAGE_CODE
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'static'----add a path for static files
 ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com']
@@ -213,6 +213,43 @@ We can reverse the ordering by adding - at the beginning:
 
  To close the shell, type this:
      >>>exit()
+
+#Dynamic data in templates
+We have different pieces in place: the Post model is defined in models.py,
+we have post_list in views.py and the template added,
+to make our posts appear in our HTML template, we have incoparate views which is used to connect templates and models
+to achieve this, In our post_list view we will need to take the models we want to display and pass them to the template.
+to achieve this,We need to open our blog/views.py
+ then we have to import Post from our models  and add it to our views.py
+ >>from .models import Post
+
+#QuerySet
+we have already published blog posts  sorted by published_date in the QuerySets chapter 
+now open blog/views.py, and add the code below
+>>>from django.utils import timezone
+now add this piece of code to the function def post_list(request)
+>>> posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+To display our QuerySet on our blog's post list,
+Pass the posts QuerySet to the template context, by changing the render function call
+this is achieved by adding 
+>>>{'posts': posts}---to the render function in the views.py
+. Please note that the part before : is a string; you need to wrap it with quotes: ''.
+
+#Django templates
+Django template tags allow us to transfer Python-like things into HTML, so you can build dynamic websites faster. 
+To print a variable in Django templates, we use double curly brackets with the variable's name inside
+example----{{ posts }} it gets bettrr with each lesson {{post}}
+to display lists in django templates we use,
+  {% for post in posts %}
+    {{ post }}
+  {% endfor %}
+***mine didnt work if u have a solution get  a pull request and update***
+
+#Static files in Django
+Static files are all your CSS and images
+in Django we add static files by creating a folder called static inside the blog app:
+to add your own style to your web page. Create a new directory called css
+Then create a new file called blog.css inside this css directory
 
 
 
