@@ -247,10 +247,14 @@ to display lists in django templates we use,
 
 #Static files in Django
 Static files are all your CSS and images
-in Django we add static files by creating a folder called static inside the blog app:
+in Django we add static files by creating a directory called static inside the blog app:
 to add your own style to your web page. Create a new directory called css
 Then create a new file called blog.css inside this css directory
-
+now we  need to tell our HTML template that we added some CSS we achieve this by;
+Open the blog/templates/blog/post_list.html and add this line to the top of the file
+>>>{% load static %}
+now between the <head> and </head> tags, after the links to the Bootstrap CSS files, add this line:
+>>><link rel="stylesheet" href="{% static 'css/blog.css' %}">
 
 
   
