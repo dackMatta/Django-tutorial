@@ -256,6 +256,66 @@ Open the blog/templates/blog/post_list.html and add this line to the top of the 
 now between the <head> and </head> tags, after the links to the Bootstrap CSS files, add this line:
 >>><link rel="stylesheet" href="{% static 'css/blog.css' %}">
 
+#template extending
+allows us to use the same parts of our HTML for different pages of our website.
+Templates help when you want to use the same information or layout in more than one place.
+A base template is the most basic template that you extend on every page of your website.
+create a base.html file in blog/templates/blog/:
+copy everything from post_list.html to base.html file,
+Then in base.html, replace your whole <body>
+ to connect these two templates together,We'll do this by adding an extends tag to the beginning of the file
+ >>>{% extends 'blog/base.html' %}
+
+#extending our application
+to achieve this we have to Create a template link to a post's detail
+We will start with adding a link inside blog/templates/blog/post_list.html file
+We want to have a link from a post's title in the post list to the post's detail page,
+ Let's change <h2><a href="">{{ post.title }}</a></h2> to;
+ >>><h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
+
+
+
+ {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mac.com</title>
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    
+</head>
+<body>
+    
+    <header>
+      <button class="ddn">  PYTHON DJANGO TUTORIAL</button>
+    </header>
+    <h4>welcome to my django with python tutorial</h3>
+    <form action="submit" method="get">
+          <h1><strong><em>Dream code Academy</em></strong></h1>
+          <p><strong>Student Information</strong></p>
+          <fieldset>
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Your name" required>
+            <label for="id">Student ID</label>
+            <input type="password" id="studentsid" name="id" required>
+          </fieldset>
+            <label for="login"><button class="btn">LOG IN</button></label>
+    </form>
+    {{post}} use the django template tag to come up with this paragraph {{post}}
+       
+    {% for post in posts %}
+    <article class="post">
+        <time class="date">
+            {{ post.published_date }}
+        </time>
+        <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
+        <p>{{ post.text|linebreaksbr }}</p>
+    </article>
+   {% endfor %}
+
 
   
 
