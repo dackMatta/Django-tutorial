@@ -27,8 +27,7 @@
           </fieldset>
             <label for="login"><button class="btn">LOG IN</button></label>
     </form>
-    <p>For enrolled students: <br><a href="http://127.0.0.1:8000/base/">click here</p></h5>
-
+    <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
     
 </body>
 </html>
