@@ -288,6 +288,30 @@ lets get a brief explanation of the url above;
 <int:pk> – this part is trickier. It means that Django expects an integer value and will transfer it to a view as a variable called pk.
 / – then we need a / again before finishing the URL.
 
+now we have to add a post_detail to our  views.py to do this;
+navigate to views.py,
+define a function:
+>>> def post_detail(request, pk):
+***Note that this parameter must have the exact same name as the one we specified in urls (pk).***
+ 
+ for more information on this topic or further clarification be sure to visit:
+ >>>https://tutorial.djangogirls.org/en/extend_your_application/
+
+ #Django Forms
+ forms enables us to add and edit blog posts
+ We will create a form for our Post model.
+ First we will create a file for our forms in the blog directory.go ahead and create the file.
+ in the forms.py file we will add the code snippet below;
+
+ from django import forms
+ from .models import Post
+
+ class PostForm(forms.ModelForm):
+
+    class Meta:
+        model = Post
+        fields = ('title', 'text',)
+
 
 
 

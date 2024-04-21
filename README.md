@@ -15,3 +15,4 @@ This repository contains a step-by-step tutorial for building a web application 
 
 - [Django Girls Tutorial](https://tutorial.djangogirls.org/): The original tutorial that inspired this repository.
 - [Django Documentation](https://docs.djangoproject.com/en/stable/): Official documentation for Django.
+- [Python Django course](https://youtu.be/PtQiiknWUcI?si=tRq6rrx_6E5kP9Xh):Youtube tutorial
